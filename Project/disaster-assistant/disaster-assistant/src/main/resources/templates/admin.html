@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Admin Dashboard</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="/">
+            🚨 Disaster Survival Assistant
+        </a>
+
+        <a href="/" class="btn btn-outline-light">
+            Home
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= ADMIN DASHBOARD ================= -->
+
+<div class="container mt-5">
+
+    <div class="text-center">
+
+        <h1>👨‍💼 Admin Dashboard</h1>
+
+        <p class="lead">
+            Manage Disaster Survival Assistant
+        </p>
+
+    </div>
+
+
+    <!-- ================= CARDS ================= -->
+
+    <div class="row g-4 mt-4">
+
+
+        <!-- ALERTS -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <h2>🚨</h2>
+
+                    <h5>Emergency Alerts</h5>
+
+                    <p>
+                        Manage disaster alerts.
+                    </p>
+
+                    <!-- CHANGED TO /admin-alerts -->
+
+                    <a href="/admin-alerts"
+                       class="btn btn-warning">
+
+                        View Alerts
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DISASTER -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <h2>🌪️</h2>
+
+                    <h5>Disaster Information</h5>
+
+                    <p>
+                        View disaster safety guides.
+                    </p>
+
+                    <a href="/active"
+                       class="btn btn-primary">
+
+                        View Guides
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- USERS -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <h2>👥</h2>
+
+                    <h5>Users</h5>
+
+                    <p>
+                        View registered users.
+                    </p>
+
+                    <button type="button"
+                            class="btn btn-success"
+                            onclick="toggleUsers()">
+
+                        View Users
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- EMERGENCY -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="card shadow h-100 text-center">
+
+                <div class="card-body">
+
+                    <h2>📍</h2>
+
+                    <h5>Emergency Services</h5>
+
+                    <p>
+                        Access emergency assistance.
+                    </p>
+
+                    <a href="/emergency"
+                       class="btn btn-danger">
+
+                        Emergency
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= REGISTERED USERS ================= -->
+
+    <div id="registeredUsers"
+         class="card shadow mt-5"
+         hidden>
+
+        <div class="card-body">
+
+            <h3 class="text-center mb-4">
+
+                👥 Registered Users
+
+            </h3>
+
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped table-hover">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Full Name</th>
+
+                            <th>Email</th>
+
+                            <th>Password</th>
+
+                            <th>Confirm Password</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <!-- Users from MySQL -->
+
+                        <tr th:each="u : ${users}">
+
+                            <td th:text="${u.id}">
+                                1
+                            </td>
+
+                            <td th:text="${u.fullName}">
+                                User Name
+                            </td>
+
+                            <td th:text="${u.email}">
+                                user@email.com
+                            </td>
+
+                            <td>
+                                ********
+                            </td>
+
+                            <td>
+                                ********
+                            </td>
+
+                        </tr>
+
+
+                        <!-- No Users -->
+
+                        <tr th:if="${#lists.isEmpty(users)}">
+
+                            <td colspan="5"
+                                class="text-center text-muted">
+
+                                No registered users found.
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= SYSTEM OVERVIEW ================= -->
+
+    <div class="card shadow mt-5 mb-5">
+
+        <div class="card-body text-center">
+
+            <h3>
+                📊 System Overview
+            </h3>
+
+            <p>
+
+                Admin can monitor disaster information,
+                emergency alerts, registered users and
+                emergency services.
+
+            </p>
+
+            <div class="alert alert-info">
+
+                ℹ️ Admin dashboard is used for
+                project management and monitoring.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="bg-dark text-white text-center p-4">
+
+    <p class="mb-0">
+
+        © 2026 AI Disaster Survival Assistant
+
+    </p>
+
+    <small>
+
+        Admin Module
+
+    </small>
+
+</footer>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+function toggleUsers() {
+
+    let users = document.getElementById("registeredUsers");
+
+    if (users.hidden) {
+
+        users.hidden = false;
+
+    } else {
+
+        users.hidden = true;
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>

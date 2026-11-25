@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emergency Alerts - AI Disaster Survival Assistant</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+
+            <a class="navbar-brand" href="/">
+                🚨 AI Disaster Survival Assistant
+            </a>
+
+            <a href="/" class="btn btn-outline-light">
+                🏠 Home
+            </a>
+
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+
+        <div class="text-center mb-4">
+
+            <h1>🚨 Emergency Alerts</h1>
+
+            <p class="text-muted">
+                Latest emergency alerts and disaster warnings
+            </p>
+
+        </div>
+
+
+        <!-- Alerts Available -->
+        <div th:if="${!#lists.isEmpty(alerts)}">
+
+            <div th:each="a : ${alerts}" class="card shadow mb-4">
+
+                <div class="card-body">
+
+                    <h4 th:text="${a.title}">
+                        Alert Title
+                    </h4>
+
+                    <p>
+                        <strong>Disaster:</strong>
+
+                        <span th:text="${a.disasterType}">
+                            Flood
+                        </span>
+                    </p>
+
+                    <p th:text="${a.message}">
+                        Emergency alert message
+                    </p>
+
+                    <span class="badge bg-danger"
+                          th:text="${a.severity}">
+                        High
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- No Alerts -->
+        <div th:if="${#lists.isEmpty(alerts)}"
+             class="alert alert-info text-center">
+
+            ℹ️ No emergency alerts available.
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+
+        © 2026 AI Disaster Survival Assistant
+
+    </footer>
+
+
+    <!-- Browser Notification Script -->
+    <script>
+
+        // Ask permission for browser notifications
+        if ("Notification" in window &&
+            Notification.permission === "default") {
+
+            Notification.requestPermission();
+        }
+
+
+        // Store last alert ID
+        let lastAlertId =
+            localStorage.getItem("lastAlertId");
+
+
+        // Function to check new alerts
+        function checkNewAlert() {
+
+            fetch("/api/alerts/latest")
+
+                .then(response => response.json())
+
+                .then(alert => {
+
+                    // If there is no alert
+                    if (!alert || !alert.id) {
+                        return;
+                    }
+
+
+                    // First time opening the page
+                    if (lastAlertId === null) {
+
+                        localStorage.setItem(
+                            "lastAlertId",
+                            alert.id
+                        );
+
+                        lastAlertId = alert.id;
+
+                        return;
+                    }
+
+
+                    // New alert detected
+                    if (Number(alert.id) >
+                        Number(lastAlertId)) {
+
+
+                        // Show browser notification
+                        if ("Notification" in window &&
+                            Notification.permission === "granted") {
+
+                            new Notification(
+                                "🚨 New Emergency Alert",
+                                {
+                                    body:
+                                        alert.title +
+                                        "\n" +
+                                        alert.message
+                                }
+                            );
+
+                        }
+
+
+                        // Save latest alert ID
+                        localStorage.setItem(
+                            "lastAlertId",
+                            alert.id
+                        );
+
+                        lastAlertId = alert.id;
+
+                    }
+
+                })
+
+                .catch(error => {
+
+                    console.log(
+                        "Alert check error:",
+                        error
+                    );
+
+                });
+
+        }
+
+
+        // Check for new alert every 10 seconds
+        setInterval(
+            checkNewAlert,
+            10000
+        );
+
+    </script>
+
+</body>
+
+</html>

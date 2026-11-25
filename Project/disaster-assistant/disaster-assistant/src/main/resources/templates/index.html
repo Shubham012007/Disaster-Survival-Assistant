@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>AI Disaster Survival Assistant</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+</head>
+
+
+<body class="bg-light">
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="/">
+            🚨 AI Disaster Survival Assistant
+        </a>
+
+
+        <div>
+
+            <!-- LOGIN -->
+            <a href="/login"
+               class="btn btn-outline-light">
+
+                🔐 Login
+
+            </a>
+
+
+            <!-- ADMIN LOGIN -->
+            <a href="/admin-login"
+               class="btn btn-outline-light ms-2">
+
+                👨‍💼 Admin Login
+
+            </a>
+
+
+            <!-- REGISTER -->
+            <a href="/register"
+               class="btn btn-danger ms-2">
+
+                Register
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ================= HERO SECTION ================= -->
+
+<div class="container mt-5">
+
+    <div class="p-5 text-center bg-white rounded shadow">
+
+        <h1 class="display-5 fw-bold">
+
+            🚨 AI Disaster Survival Assistant
+
+        </h1>
+
+
+        <p class="lead mt-3">
+
+            Your smart assistant for disaster safety,
+            emergency help and survival guidance.
+
+        </p>
+
+
+        <div class="mt-4">
+
+            <a href="/chatbot"
+               class="btn btn-primary btn-lg">
+
+                🤖 AI Emergency Chatbot
+
+            </a>
+
+
+            <a href="/emergency"
+               class="btn btn-danger btn-lg ms-2">
+
+                🚨 Emergency Help
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= MAIN FEATURES ================= -->
+
+<div class="container mt-5">
+
+    <div class="row g-4">
+
+
+        <!-- DISASTER GUIDE -->
+
+        <div class="col-md-6">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h3>
+                        📖 Disaster Survival Guide
+                    </h3>
+
+                    <p class="text-muted">
+
+                        Get safety instructions for
+                        different types of disasters.
+
+                    </p>
+
+
+                    <a href="/active#flood"
+                       class="btn btn-primary">
+
+                        View Guide
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- EMERGENCY ALERTS -->
+
+        <div class="col-md-6">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h3>
+                        🚨 Emergency Alerts
+                    </h3>
+
+                    <p class="text-muted">
+
+                        Check the latest disaster
+                        warnings and emergency alerts.
+
+                    </p>
+
+
+                    <a href="/alerts"
+                       class="btn btn-warning">
+
+                        View Alerts
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PREPAREDNESS CHECKLIST -->
+
+        <div class="col-md-6">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h3>
+                        ✅ Preparedness Checklist
+                    </h3>
+
+                    <p class="text-muted">
+
+                        Check your emergency supplies
+                        before a disaster.
+
+                    </p>
+
+
+                    <a href="/checklist"
+                       class="btn btn-success">
+
+                        ✅ Open Checklist
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- LOCATION -->
+
+        <div class="col-md-6">
+
+            <div class="card shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h3>
+                        📍 Location & Nearby Help
+                    </h3>
+
+                    <p class="text-muted">
+
+                        Find your location and nearby
+                        hospitals, police, fire stations
+                        and shelters.
+
+                    </p>
+
+
+                    <button
+                        onclick="getLocation()"
+                        class="btn btn-success">
+
+                        📍 Get My Location
+
+                    </button>
+
+
+                    <br>
+
+
+                    <button
+                        onclick="openMap()"
+                        class="btn btn-primary mt-2">
+
+                        🗺️ Open My Location on Map
+
+                    </button>
+
+
+                    <br>
+
+
+                    <button
+                        onclick="openHospitals()"
+                        class="btn btn-warning mt-2">
+
+                        🏥 Nearby Hospitals
+
+                    </button>
+
+
+                    <br>
+
+
+                    <button
+                        onclick="openPolice()"
+                        class="btn btn-dark mt-2">
+
+                        👮 Nearby Police Stations
+
+                    </button>
+
+
+                    <br>
+
+
+                    <button
+                        onclick="openFireStations()"
+                        class="btn btn-danger mt-2">
+
+                        🚒 Nearby Fire Stations
+
+                    </button>
+
+
+                    <br>
+
+
+                    <button
+                        onclick="openShelters()"
+                        class="btn btn-info mt-2">
+
+                        🏠 Emergency Shelters
+
+                    </button>
+
+
+                    <p
+                        id="locationText"
+                        class="mt-3 text-success fw-bold">
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WEATHER -->
+
+        <div class="col-md-12">
+
+            <div class="card shadow">
+
+                <div class="card-body text-center">
+
+                    <h3>
+                        🌤️ Weather Information
+                    </h3>
+
+                    <p class="text-muted">
+
+                        Current weather information
+                        for your location.
+
+                    </p>
+
+
+                    <button
+                        onclick="getWeather()"
+                        class="btn btn-info">
+
+                        🌤️ Get Weather
+
+                    </button>
+
+
+                    <div
+                        id="weatherInfo"
+                        class="mt-4">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="bg-dark text-white text-center p-4 mt-5">
+
+    <p class="mb-0">
+
+        © 2026 AI Disaster Survival Assistant
+
+    </p>
+
+    <small>
+
+        Stay Safe • Stay Prepared • Save Lives
+
+    </small>
+
+</footer>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+/* ================= LOCATION ================= */
+
+let userLatitude = null;
+
+let userLongitude = null;
+
+
+function getLocation() {
+
+    if (!navigator.geolocation) {
+
+        alert(
+            "Geolocation is not supported by your browser."
+        );
+
+        return;
+
+    }
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            userLatitude =
+                position.coords.latitude;
+
+            userLongitude =
+                position.coords.longitude;
+
+
+            document.getElementById(
+                "locationText"
+            ).innerHTML =
+
+                "📍 Latitude: "
+                + userLatitude.toFixed(6)
+
+                + "<br>"
+
+                + "📍 Longitude: "
+                + userLongitude.toFixed(6);
+
+        },
+
+
+        function(error) {
+
+            alert(
+                "Unable to get your location. Please allow location permission."
+            );
+
+        }
+
+    );
+
+}
+
+
+
+/* ================= OPEN MAP ================= */
+
+function openMap() {
+
+    if (
+        userLatitude !== null &&
+        userLongitude !== null
+    ) {
+
+        let mapUrl =
+            "https://www.google.com/maps?q="
+            + userLatitude
+            + ","
+            + userLongitude;
+
+
+        window.open(
+            mapUrl,
+            "_blank"
+        );
+
+    }
+
+    else {
+
+        alert(
+            "Please click 'Get My Location' first."
+        );
+
+    }
+
+}
+
+
+
+/* ================= HOSPITALS ================= */
+
+function openHospitals() {
+
+    if (
+        userLatitude !== null &&
+        userLongitude !== null
+    ) {
+
+        let hospitalUrl =
+            "https://www.google.com/maps/search/hospitals/@"
+            + userLatitude
+            + ","
+            + userLongitude
+            + ",15z";
+
+
+        window.open(
+            hospitalUrl,
+            "_blank"
+        );
+
+    }
+
+    else {
+
+        alert(
+            "Please click 'Get My Location' first."
+        );
+
+    }
+
+}
+
+
+
+/* ================= POLICE ================= */
+
+function openPolice() {
+
+    if (
+        userLatitude !== null &&
+        userLongitude !== null
+    ) {
+
+        let policeUrl =
+            "https://www.google.com/maps/search/police+stations/@"
+            + userLatitude
+            + ","
+            + userLongitude
+            + ",15z";
+
+
+        window.open(
+            policeUrl,
+            "_blank"
+        );
+
+    }
+
+    else {
+
+        alert(
+            "Please click 'Get My Location' first."
+        );
+
+    }
+
+}
+
+
+
+/* ================= FIRE STATIONS ================= */
+
+function openFireStations() {
+
+    if (
+        userLatitude !== null &&
+        userLongitude !== null
+    ) {
+
+        let fireUrl =
+            "https://www.google.com/maps/search/fire+stations/@"
+            + userLatitude
+            + ","
+            + userLongitude
+            + ",15z";
+
+
+        window.open(
+            fireUrl,
+            "_blank"
+        );
+
+    }
+
+    else {
+
+        alert(
+            "Please click 'Get My Location' first."
+        );
+
+    }
+
+}
+
+
+
+/* ================= EMERGENCY SHELTERS ================= */
+
+function openShelters() {
+
+    if (
+        userLatitude !== null &&
+        userLongitude !== null
+    ) {
+
+        let shelterUrl =
+            "https://www.google.com/maps/search/emergency+shelters/@"
+            + userLatitude
+            + ","
+            + userLongitude
+            + ",15z";
+
+
+        window.open(
+            shelterUrl,
+            "_blank"
+        );
+
+    }
+
+    else {
+
+        alert(
+            "Please click 'Get My Location' first."
+        );
+
+    }
+
+}
+
+
+
+/* ================= WEATHER ================= */
+
+function getWeather() {
+
+    let weatherInfo =
+        document.getElementById(
+            "weatherInfo"
+        );
+
+
+    weatherInfo.innerHTML = `
+
+        <div class="alert alert-info">
+
+            <h5>
+                🌤️ Weather Information
+            </h5>
+
+            <p class="mb-1">
+                🌡️ Temperature: 28.7°C
+            </p>
+
+            <p class="mb-1">
+                💧 Humidity: 76%
+            </p>
+
+            <p class="mb-1">
+                💨 Wind: 5.2 km/h
+            </p>
+
+            <p class="mb-0">
+                ☁️ Condition: Partly Cloudy
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+</script>
+
+
+</body>
+
+</html>
